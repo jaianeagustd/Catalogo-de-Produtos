@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo</title>
+</head>
+<body>
+    <script>
+        class Produto {
+            constructor(nome, preco, descricao) {
+                this.nome = nome;
+                this.preco = preco;
+                this.descricao = descricao;
+            }
+        }
+    
+        var catalogoProdutos = [];
+    
+        function adicionarNovoProduto() {
+            var nomeProduto = prompt("Digite o nome do produto que deseja adicionar:");
+            var precoProduto = parseFloat(prompt("Digite o preço do produto:"));
+            var descricaoProduto = prompt("Digite a descrição do produto:");
+    
+            var novoProduto = new Produto(nomeProduto, precoProduto, descricaoProduto);
+            catalogoProdutos.push(novoProduto);
+            alert("Produto adicionado com sucesso!");
+        }
+    
+        function buscarProdutoNome() {
+            var nomeBuscaProduto = prompt("Digite o nome do produto que deseja buscar:");
+            
+            catalogoProdutos.forEach(produto => {
+                if (produto.nome === nomeBuscaProduto) {
+                    alert("Nome: " + produto.nome + "\n" + "Preço: " + produto.preco + "\n" + "Descrição: " + produto.descricao + "\n");
+                }else{
+                    alert("Não encontrado")
+                }
+            });
+    
+        }
+    
+        function atualizarInformacoesProduto() {
+            var nomeBuscaProduto = prompt("Digite o nome do produto que deseja atualizar:");
+            var produtoIndex = catalogoProdutos.findIndex(produto => produto.nome === nomeBuscaProduto);
+    
+            if (produtoIndex !== -1) {
+                var novoNome = prompt("Digite o novo nome do produto (se necessário): ");
+                var novoPreco = parseFloat(prompt("Digite o novo preço do produto: "));
+                var novaDescricao = prompt("Digite a nova descrição do produto: ");
+
+            // Atualizar os valores do produto encontrado
+                catalogoProdutos[produtoIndex].nome = novoNome !== "" ? novoNome : catalogoProdutos[produtoIndex].nome;
+                catalogoProdutos[produtoIndex].preco = novoPreco;
+                catalogoProdutos[produtoIndex].descricao = novaDescricao;
+                alert("Produto atualizado com sucesso.");
+            } else {
+                alert("Produto não encontrado.");
+            }
+        }
+    
+        function mostrarTodosProdutos() {
+            var textoProdutos = "";
+    
+            alert("----------------- Catálogo de Produtos ----------------\n");
+    
+            catalogoProdutos.forEach(produto => {
+                textoProdutos += "Nome: " + produto.nome + "\n" + "Preço: " + produto.preco + "\n" + "Descrição: " + produto.descricao + "\n------------------------\n";
+            });
+    
+            alert(textoProdutos);
+        }
+    
+        function removerProdutoCatalogo() {
+            var nomeProdutoRemover = prompt("Digite o nome do produto que deseja remover:");
+            var indiceProdutoRemover = catalogoProdutos.findIndex(produto => produto.nome === nomeProdutoRemover);
+    
+            if (indiceProdutoRemover !== -1) {
+                catalogoProdutos.splice(indiceProdutoRemover, 1);
+                alert("Produto removido com sucesso.");
+            } else {
+                alert("Produto não encontrado.");
+            }
+        }
+    
+        function iniciarPrograma() {
+            var opcaoMenu;
+    
+            do {
+                alert("----- Opções de escolha -----\n Adicionar Novo Produto: 1 \n Buscar Produto pelo Nome: 2 \n Atualizar Informações do Produto: 3 \n Mostrar Todos os Produtos: 4 \n Remover Produto do Catálogo: 5 \n Sair: 6 \n");
+    
+                opcaoMenu = parseInt(prompt("Escolha uma opção:"));
+    
+                switch (opcaoMenu) {
+                    case 1:
+                        adicionarNovoProduto();
+                        break;
+                    case 2:
+                        buscarProdutoNome();
+                        break;
+                    case 3:
+                        atualizarInformacoesProduto();
+                        break;
+                    case 4:
+                        mostrarTodosProdutos();
+                        break;
+                    case 5:
+                        removerProdutoCatalogo();
+                        break;
+                    case 6:
+                        alert("Saindo do catálogo de produtos...");
+                        break;
+                    default:
+                        alert("Opção inválida. Tente novamente.");
+                }
+            } while (opcaoMenu !== 6);
+        }
+    
+        iniciarPrograma();
+    </script>
+</body>
+</html>
